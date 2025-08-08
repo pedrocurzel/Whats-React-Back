@@ -27,6 +27,7 @@ class AuthenticateController {
 
     static async login(req, res) {
         const userData = req.body;
+        console.log(userData);
         try {
             const dbUser = await database.tblUsers.findOne({where: {
                 email: userData.email,
@@ -41,7 +42,9 @@ class AuthenticateController {
                 message: "Login successfull!",
                 token,
                 name: dbUser.name,
-                id: dbUser.id
+                id: dbUser.id,
+                email: dbUser.email,
+                error: false
             });
         } catch(error) {
             return returnError(res, error);

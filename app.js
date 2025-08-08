@@ -8,15 +8,23 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require("./routes/auth.js");
 var messagesRouter = require("./routes/messages.js");
-
+var bodyParser = require('body-parser')
+var multer = require('multer');
+var multerA = multer();
 
 var app = express();
+app.use(cors({
+  origin: '*',
+}));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(multerA.single("abc")); 
+app.use(bodyParser.urlencoded());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(cors());
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
